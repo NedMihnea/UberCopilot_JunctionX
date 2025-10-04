@@ -4,20 +4,31 @@ import Map from "../map/page"
 import RecommendCard from "../recommendation/page"
 import WellnessBar from "../wellnessBar/page"
 import GoalBar from "../goalBar/page"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CompleteTripButton from "../completeTrip/page";
 import GoalNotif from "../notification/goalNotification/page";
+import UserNotif from "../notification/userNotification/page";
 
 export default function Dash(){
     var currentRec= "testRec lol";
     const [activeRec, setActive] = useState("none");
 
-    const [notifOpen, setNotifOpen] = useState(true);
+    const [goalNotifOpen, setGoalNotifOpen] = useState(false);
+    const [userNotifOpen, setUserNotifOpen] = useState(false);
     const [goal, setGoal] = useState(0);
 
-    const handleSubmit = (value) => {
+    useEffect(() =>{
+        setUserNotifOpen(true);
+    },[]);
+
+    const handleSubmitGoal = (value) => {
       setGoal(value);
-      setNotifOpen(false);    
+      setGoalNotifOpen(false);
+    };
+
+    const handleSubmitUser = (value) => {
+      setUserNotifOpen(false);
+      setGoalNotifOpen(true);    
     };
 
 
@@ -32,7 +43,8 @@ export default function Dash(){
 
     return (
         <div className=" flex flex-col text-foreground bg-linear-to-t from-lightpurple to-background w-screen h-screen overflow-y-auto pt-20 items-center space-y-6">
-            <GoalNotif open={notifOpen} onSubmit={handleSubmit} setOpen={setNotifOpen}></GoalNotif>
+            <UserNotif open={userNotifOpen} setOpen={setUserNotifOpen} onSubmit={handleSubmitUser}></UserNotif>
+            <GoalNotif open={goalNotifOpen} onSubmit={handleSubmitGoal} setOpen={setGoalNotifOpen}></GoalNotif>
             <Navbar></Navbar>
             <Map></Map>
             <RecommendCard recommendationData={currentRec} onAccept={onAccept} onReject={onReject}></RecommendCard>

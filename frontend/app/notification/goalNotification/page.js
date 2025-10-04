@@ -17,7 +17,8 @@ export default function GoalNotif({open, onSubmit, setOpen}) {
 
     const handleInput = () => {
         if(value == "" || isNaN(value)){
-            alert("You must write a goal and it must be a number!")
+            alert("You must write a goal and it must be a number!");
+            return;
         }
         setOpen(false);
         onSubmit(value);
