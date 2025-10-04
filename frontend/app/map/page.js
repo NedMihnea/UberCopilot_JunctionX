@@ -72,6 +72,7 @@ function generateHexesForN(n) {
 // Example usage
 const hexes = generateHexesForN(37);
     return (
+<<<<<<< HEAD
         <div className=" flex w-3/4 m-10 h-3/4 rounded-2xl bg-foreground">
         <TransformWrapper>
     <TransformComponent>
@@ -91,5 +92,8 @@ const hexes = generateHexesForN(37);
         </TransformComponent>
   </TransformWrapper>
   </div>
+=======
+        <div className=" flex w-3/4 h-1/2 rounded-2xl bg-foreground space-y-2"></div>
+>>>>>>> frontendWork
     )
 }
