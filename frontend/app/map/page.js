@@ -84,7 +84,6 @@ const hexes = generateHexesForN(37);
             </Hexagon>
           ))}
         </Layout>
-        
       </HexGrid>
       
         
