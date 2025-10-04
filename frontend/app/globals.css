@@ -64,3 +64,20 @@ a{
   cursor: pointer;
 }
 
+@keyframes fadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Define utility classes that use your custom animation */
+@layer utilities {
+  .animate-fadeUp {
+    animation: fadeUp 0.6s ease forwards;
+  }
+}
