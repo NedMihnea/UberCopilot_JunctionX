@@ -30,7 +30,7 @@ export default function Map() {
     [1, -1, 0],
   ];
 
-  // Generate hexes
+  // Generate hexes for a single cluster
   function generateHexesForN(n) {
     if (n <= 0) return [];
     const hexes = [[0, 0, 0]];
@@ -57,8 +57,28 @@ export default function Map() {
     return hexes;
   }
 
-  const citySize = 200;
+  // Offset a cluster to a different position
+  function offsetHexes(hexes, qOffset, rOffset, sOffset = 0) {
+    return hexes.map(([q, r, s]) => [q + qOffset, r + rOffset, s + sOffset]);
+  }
+
+  const citySize = 1200; // change to 1200 later
   const baseCluster = useMemo(() => generateHexesForN(citySize), []);
+
+  // Define offsets for 5 clusters (spread out nicely)
+  const offsets = [
+    [0, 0, 0],          // center
+    [25, -47, 0],       // top-right
+    [-25, 47, 0],       // bottom-left
+    [30, 20, -60],     // far-right
+    [-25, -25, 47],     // far-left
+  ];
+
+  // Combine all clusters
+  const allHexes = useMemo(
+    () => offsets.flatMap(([qOff, rOff, sOff]) => offsetHexes(baseCluster, qOff, rOff, sOff)),
+    [baseCluster]
+  );
 
   return (
     <div
@@ -66,21 +86,20 @@ export default function Map() {
       className="flex w-3/4 m-10 h-[80vh] rounded-2xl bg-foreground overflow-hidden"
     >
       {dimensions.width > 0 && dimensions.height > 0 && (
-        <TransformWrapper minScale={0.1} maxScale={3}>
+        <TransformWrapper minScale={0.1} maxScale={20}>
           <TransformComponent>
             <HexGrid
               width={dimensions.width}
               height={dimensions.height}
-              // ViewBox = same size as container so it scales nicely
               viewBox={`-${dimensions.width / 2} -${dimensions.height / 2} ${dimensions.width} ${dimensions.height}`}
             >
               <Layout
-                size={{ x: 10, y: 10 }}
+                size={{ x: 2, y: 2 }} // adjust size so all clusters fit
                 flat={true}
                 spacing={1.05}
                 origin={{ x: 0, y: 0 }}
               >
-                {baseCluster.map(([q, r, s], index) => (
+                {allHexes.map(([q, r, s], index) => (
                   <Hexagon key={index} q={q} r={r} s={s} />
                 ))}
               </Layout>
