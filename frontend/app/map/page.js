@@ -1,5 +1,5 @@
 export default function Map(){
     return (
-        <div className=" flex w-3/4 m-10 h-3/4 rounded-2xl bg-foreground"></div>
+        <div className=" flex w-3/4 h-1/2 rounded-2xl bg-foreground space-y-2"></div>
     )
 }
