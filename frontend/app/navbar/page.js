@@ -25,7 +25,6 @@ export default function Navbar(){
                 <Link href="/dashboard">Home</Link>
                 <Link href="/recommendation/recPage">Current Suggestion</Link>
                 <Link href="/statistics">Daily Statistics</Link>
-                <Link href="/history">History</Link>
             </div>
         </div>
     )
