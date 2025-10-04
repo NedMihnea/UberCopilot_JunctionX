@@ -6,7 +6,7 @@
   --lightpurple: #222233;
   --mediumpurple:	#161629;
   --darkpurple: #09091a	;
-  --foreground: #ededed;
+  --foreground: #ffff;
 }
 
 @theme inline {
@@ -27,14 +27,12 @@
     --lightpurple: #222233;
     --mediumpurple:	#161629;
     --darkpurple: #09091a	;
-    --foreground: #ededed;
   }
 }
 
 body {
   background: var(--darkpurple);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  color: var(--color-foreground);
 }
 
 a{

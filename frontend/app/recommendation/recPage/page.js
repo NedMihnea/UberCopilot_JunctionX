@@ -36,8 +36,8 @@ export default function RecPage() {
       <Navbar />
 
       {/* Header 1 */}
-      <header className="w-full px-6 animate-fadeUp">
-        <h1 className="text-2xl font-bold text-left text-white">Most recent suggestion:</h1>
+      <header className="w-[90%] px-6 animate-fadeUp">
+        <h1 className="text-2xl font-bold text-white">Most recent suggestion:</h1>
       </header>
 
       {/* Big last suggestion */}
@@ -46,8 +46,8 @@ export default function RecPage() {
       </div>
 
       {/* Header 2 */}
-      <header className="w-full px-6 animate-fadeUp delay-400">
-        <h3 className="text-xl font-bold text-left text-white">Previous:</h3>
+      <header className="w-[90%] px-6 animate-fadeUp delay-400">
+        <h3 className="text-xl font-bold text-white">Previous suggestions:</h3>
       </header>
 
       {/* Previous 4 smaller suggestions */}
