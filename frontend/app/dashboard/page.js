@@ -1,7 +1,7 @@
 import Navbar from "../navbar/page"
 import Map from "../map/page"
 import RecommendCard from "../recommendation/page"
-import ProgressBar from "../progressBar/page"
+import WellnessBar from "../wellnessBar/page"
 import GoalBar from "../goalBar/page"
 
 export default function Dash(){
@@ -11,7 +11,7 @@ export default function Dash(){
             <Map></Map>
             <RecommendCard></RecommendCard>
             <GoalBar progress={0} goal={0}></GoalBar>
-            <ProgressBar progress={40}></ProgressBar>
+            <WellnessBar progress={40}></WellnessBar>
         </div>
     )
 }

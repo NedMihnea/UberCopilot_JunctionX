@@ -36,3 +36,32 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+a{
+  padding: 10px;
+}
+
+a::after{
+  content: ' ';
+  left: 0;
+  bottom: 0;
+  width: 0;
+  position: absolute;
+  height: 3px;
+  background-color: var(--customblue);
+  transition: all 0.3s;
+}
+
+a:hover::after{
+  width: 100%;
+}
+
+a:hover{
+  background-color: var(--color-lightpurple);
+}
+
+a{
+  position: relative;
+  width: 100%;
+  cursor: pointer;
+}
