@@ -17,7 +17,9 @@ function CarIcon() {
 export default function Map() {
   const containerRef = useRef(null);
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
-  
+
+  const transformWrapperRef = useRef(null);
+
 
   const [hexTuples, setHexTuples] = useState([]);
 
@@ -50,15 +52,14 @@ useEffect(() => {
   // Watch container size
   useEffect(() => {
     if (!containerRef.current) return;
-
     const observer = new ResizeObserver((entries) => {
       const rect = entries[0].contentRect;
       setDimensions({ width: rect.width, height: rect.height });
     });
-
     observer.observe(containerRef.current);
     return () => observer.disconnect();
   }, []);
+
 
    // --- Load CSV ---
   useEffect(() => {
@@ -78,6 +79,20 @@ useEffect(() => {
   }, []);
 
  
+
+  useEffect(() => {
+    if (dimensions.width > 0 && dimensions.height > 0 && transformWrapperRef.current) {
+      const timer = setTimeout(() => {
+        const wrapper = transformWrapperRef.current;
+        const hexGridElement = document.getElementById('hex-grid-container');
+        if (wrapper && hexGridElement) {
+          wrapper.zoomToElement(hexGridElement, 2.5, 500);
+        }
+      }, 150);
+      return () => clearTimeout(timer);
+    }
+  }, [dimensions]);
+
 
   // Directions
   const cubeDirections = [
@@ -108,7 +123,9 @@ useEffect(() => {
     let count = 1;
     let layer = 1;
     while (count < n) {
-      let q = 0, r = -layer, s = layer;
+      let q = 0,
+        r = -layer,
+        s = layer;
       for (let side = 0; side < 6; side++) {
         const [dq, dr, ds] = cubeDirections[side];
         for (let step = 0; step < layer; step++) {
@@ -147,7 +164,7 @@ const allHexes = useMemo(() => {
   });
 }, [hexTuples, offsets]);
 
-  const citySize = 1200; // change to 1200 later
+  const citySize = 1200;
   const baseCluster = useMemo(() => generateHexesForN(citySize), []);
   
 const [minValue, maxValue] = useMemo(() => {
@@ -156,6 +173,7 @@ const [minValue, maxValue] = useMemo(() => {
   return [Math.min(...values), Math.max(...values)];
 }, [hexTuples]);
 
+
 const getColor = (value) => {
   const t = (value - minValue) / ((maxValue - minValue) || 1); 
   // Lightness: darker (30%) → lighter (70%)
@@ -163,19 +181,25 @@ const getColor = (value) => {
   return `hsl(195, 57%, ${lightness}%)`;  
 };
 
+
+
+
+
   return (
     <div
       ref={containerRef}
       className="flex w-3/4 m-10 h-[80vh] rounded-2xl bg-foreground overflow-hidden"
     >
       {dimensions.width > 0 && dimensions.height > 0 && (
-        <TransformWrapper minScale={0.1} maxScale={20}>
+        <TransformWrapper minScale={0.1} maxScale={20} ref={transformWrapperRef}>
           <TransformComponent>
             <HexGrid
+              id="hex-grid-container"
               width={dimensions.width}
               height={dimensions.height}
               viewBox={`-${dimensions.width / 2} -${dimensions.height / 2} ${dimensions.width} ${dimensions.height}`}
             >
+
               <Layout size={{ x: 2, y: 2 }} flat spacing={1.05} origin={{ x: 0, y: 0 }}>
   {allHexes.map(({ q, r, s, hexId, value }) => (
     <Hexagon
@@ -202,6 +226,7 @@ const getColor = (value) => {
     </Hexagon>
   ))}
 </Layout>
+
             </HexGrid>
           </TransformComponent>
         </TransformWrapper>

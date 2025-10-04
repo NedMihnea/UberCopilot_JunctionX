@@ -6,7 +6,7 @@
   --lightpurple: #222233;
   --mediumpurple:	#161629;
   --darkpurple: #09091a	;
-  --foreground: #ededed;
+  --foreground: #ffff;
 }
 
 @theme inline {
@@ -27,14 +27,12 @@
     --lightpurple: #222233;
     --mediumpurple:	#161629;
     --darkpurple: #09091a	;
-    --foreground: #ededed;
   }
 }
 
 body {
   background: var(--darkpurple);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  color: var(--color-foreground);
 }
 
 a{
@@ -64,4 +62,22 @@ a{
   position: relative;
   width: 100%;
   cursor: pointer;
+}
+
+@keyframes fadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Define utility classes that use your custom animation */
+@layer utilities {
+  .animate-fadeUp {
+    animation: fadeUp 0.6s ease forwards;
+  }
 }
