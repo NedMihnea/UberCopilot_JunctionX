@@ -82,7 +82,7 @@ export default function Dash(){
         setActive("none");
         setNextRec("none");
         setFinished(true);
-        redirect('/recommendation/recPage');
+        redirect(`/statisticsCard/?earner_id=${earnerId}`);
     }
 
     async function getJSON(url) {
