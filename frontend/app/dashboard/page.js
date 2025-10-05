@@ -19,6 +19,8 @@ export default function Dash(){
     const [mapData, setMapData] = useState("none");
     const [summary, setSummary] = useState("none");
 
+    const [tripActive, setTripActive] = useState(false);
+
     const [finished, setFinished] = useState(false);
 
 
@@ -44,6 +46,11 @@ export default function Dash(){
 
     const handleTripCompleted = async(tip) =>{
         const savedData =await postJSON(`${API}/events`, {earner_id: earnerId,type: "tip_received",amount_eur: tip});
+        setTripActive(false);
+        setActive("none");
+        setNextRec("none"); 
+    
+        await getDataFromAPI(earnerId);
     }
 
     const handleSubmitTripData = async (value) =>{
@@ -52,6 +59,7 @@ export default function Dash(){
         if(currentRec.recommendation.type !== "break"){
            const savedData =await postJSON(`${API}/events`, {earner_id: earnerId,type: "trip_completed",amount_eur: tripData.payment,hex_id: currentRec.recommendation.hex_id, duration_minutes: tripData.duration,});
         }
+        setTripActive(true);
     }
 
     const handleEndSession = async() =>{
@@ -130,7 +138,7 @@ export default function Dash(){
             <WellnessBar progress={40}></WellnessBar>
             <GetTripData open={tripDataOpen} setOpen={setTripDataOpen} onSubmit={handleSubmitTripData}></GetTripData>
             <EndSessionButton onClick={handleEndSession}></EndSessionButton>
-            {activeRec !== "none" && <CompleteTripButton onSubmit={handleTripCompleted} />}
+            {activeRec !== "none"&& tripActive && <CompleteTripButton onSubmit={handleTripCompleted} />}
         </div>
     )
 }
