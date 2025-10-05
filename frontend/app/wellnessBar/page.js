@@ -8,7 +8,7 @@ export default function WellnessBar({ progress,tier }){
         <div className="w-[90%] flex flex-col h-fit">
         <p>Wellness:</p>
         <div className="w-full bg-background mb-5 rounded-full">
-          <div className="bg-customblue h-6 rounded-full transition-all duration-500" style={{width : progress+ '%'}}></div>
+          <div className="bg-customblue h-6 rounded-full min-w-0 transition-all duration-500" style={{width : (100-progress)+ '%'}}></div>
         </div>
         </div>
     )
