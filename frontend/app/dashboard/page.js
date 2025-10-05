@@ -4,7 +4,7 @@ import Map from "../map/page"
 import RecommendCard from "../recommendation/page"
 import WellnessBar from "../wellnessBar/page"
 import GoalBar from "../goalBar/page"
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState } from "react";
 import CompleteTripButton from "../completeTrip/page";
 import GoalNotif from "../notification/goalNotification/page";
 import UserNotif from "../notification/userNotification/page";
