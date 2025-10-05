@@ -19,8 +19,8 @@ export default function Dash(){
     const [earnerId, setEarnerId] = useState(0);
     const [mapData, setMapData] = useState("none");
     const [summary, setSummary] = useState("none");
-    const [wellnessData, setWellnessData] = useState({wellness:"none",fatigue_score:0.0});
     const [duration, setDuration] = useState(0);
+    const [disabled, setDisabled] =useState(false);
 
     const [tripActive, setTripActive] = useState(false);
 
@@ -43,6 +43,18 @@ export default function Dash(){
     const handleSubmitGoal = (value) => {
       setGoal(value);
       setGoalNotifOpen(false);
+    };
+
+    const handleDisabled = async (value) =>{
+        setDisabled(value);
+        if(value){
+            const saved=await postJSON(`${API}/events`, {earner_id: earnerId,type: "start_break"});
+            console.log(saved);
+        }
+        else{
+            const saved =await postJSON(`${API}/events`, {earner_id: earnerId,type: "end_break"});
+            console.log(saved);
+        }
     };
 
     const handleTripCompleted = async(tip) =>{
@@ -118,8 +130,6 @@ export default function Dash(){
         setActive(currentRec);
         await postJSON(`${API}/events`, { earner_id : earnerId, type: "accept_card", action_id: actionId });
         setTripDataOpen(true);
-        setWellnessData({wellness: currentRec.wellness, fatigue_score: currentRec.fatigue_score});
-        console.log(currentRec);
     };
 
     const onReject = async ({actionId}) => {
@@ -135,16 +145,16 @@ export default function Dash(){
             <GoalNotif open={goalNotifOpen} onSubmit={handleSubmitGoal} setOpen={setGoalNotifOpen}></GoalNotif>
             <Navbar></Navbar>
             <Map></Map>
-            {currentRec !== "none" && <RecommendCard recommendationData={currentRec} onAccept={() => onAccept({actionId: currentRec.action_id,targetHex: currentRec.recommendation.target_hex})} onReject={() => onReject({actionId: currentRec.action_id})}/>}
+            {currentRec !== "none" && <RecommendCard disabled={disabled} recommendationData={currentRec} onAccept={() => onAccept({actionId: currentRec.action_id,targetHex: currentRec.recommendation.target_hex})} onReject={() => onReject({actionId: currentRec.action_id})}/>}
             <GoalBar progress={currentRec.cash_today_eur} goal={goal}></GoalBar>
             <WellnessBar 
             progress={currentRec !== "none" ? currentRec.fatigue_score : 0} 
             tier={currentRec !== "none" ? currentRec.wellness : "none"} 
             />
             <GetTripData open={tripDataOpen} setOpen={setTripDataOpen} onSubmit={handleSubmitTripData}></GetTripData>
-            <BreakDiv></BreakDiv>
             <EndSessionButton onClick={handleEndSession}></EndSessionButton>
-            {activeRec !== "none"&& tripActive && <CompleteTripButton onSubmit={handleTripCompleted} />}
+            {activeRec !== "none"&& tripActive && <CompleteTripButton onSubmit={handleTripCompleted} disabled={disabled} />}
+            <BreakDiv onClick={handleDisabled}></BreakDiv>
         </div>
     )
 }

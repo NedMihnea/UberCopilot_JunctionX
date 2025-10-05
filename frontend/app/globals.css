@@ -84,9 +84,18 @@ a{
 
 li{
   padding: 2px;
+  margin: 0;
+  padding: 5px 5px;
+  border-radius: 10px;
   cursor: pointer;
+  width: 100%;
+  text-align: center;
+  background-color: var(--color-customgrey);
+  color: var(--color-background);
+  margin-bottom: 2px;
 }
 
-li:hover{
+li:focus{
   background-color: var(--customblue);
+  color: var(--color-foreground);
 }

@@ -7,6 +7,9 @@ import time
 import math, os, time, hashlib
 
 app = FastAPI(title="Uber CoPilot+ (Personalized)", version="0.5.0")
+
+# Allow requests from localhost:3000
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],  
@@ -440,7 +443,6 @@ def events(body: EventIn):
         sess["cash_eur"] += amt
         if body.hex_id:  
             sess["current_hex"] = body.hex_id
-            import time
             sess["visited_hexes"].append({"hex_id": body.hex_id, "at_ms": int(time.time()*1000)})
             if len(sess["visited_hexes"]) > 50:
                 sess["visited_hexes"] = sess["visited_hexes"][-50:]
@@ -499,7 +501,6 @@ def events(body: EventIn):
         if not body.hex_id:
             raise HTTPException(status_code=400, detail="hex_id is required for 'arrived_hex'")
         sess["current_hex"] = body.hex_id
-        import time
         sess["visited_hexes"].append({"hex_id": body.hex_id, "at_ms": int(time.time()*1000)})
         if len(sess["visited_hexes"]) > 50:
             sess["visited_hexes"] = sess["visited_hexes"][-50:]

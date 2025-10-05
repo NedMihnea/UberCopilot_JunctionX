@@ -26,18 +26,18 @@ export default function GoalNotif({open, onSubmit, setOpen}) {
     };
     return(
         <AlertDialog onOpenChange={setOpen} open={open}>
-            <AlertDialogContent className=" bg-lightpurple p-3 h-[40%] border-2 border-lightpurple rounded-2xl absolute top-60% right-50%">
-                <AlertDialogHeader>
+            <AlertDialogContent className=" bg-background p-3 h-[30%] border-2 border-lightpurple rounded-2xl absolute top-60% right-50% flex flex-col items-center">
+                <AlertDialogHeader className="border-b-2 rounded-2xl border-lightpurple py-2">
                 <AlertDialogTitle>What is your goal for today?</AlertDialogTitle>
                 <AlertDialogDescription>
                     Once you enter how much you have gained, this trip will end.
                 </AlertDialogDescription>
                 </AlertDialogHeader>
                 <div>
-                    <input id="submitTip" onChange={(e) => setValue(e.target.value)} value={value} type="text" placeholder="Enter the tip.."></input>
+                    <input className="bg-lightpurple rounded-2xl w-fit px-2 py-2" onChange={(e) => setValue(e.target.value)} value={value} type="text" placeholder="Enter the goal.."></input>
                 </div>
                 <AlertDialogFooter>
-                    <button className=" cursor-pointer" onClick={handleInput}>Submit</button>
+                    <button className=" cursor-pointer border-2 border-lightpurple w-40 py-3 px-4 rounded-2xl" onClick={handleInput}>Submit</button>
                 </AlertDialogFooter>
             </AlertDialogContent>
         </AlertDialog>
