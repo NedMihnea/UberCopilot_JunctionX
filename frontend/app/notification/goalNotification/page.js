@@ -30,7 +30,7 @@ export default function GoalNotif({open, onSubmit, setOpen}) {
                 <AlertDialogHeader className="border-b-2 rounded-2xl border-lightpurple py-2">
                 <AlertDialogTitle>What is your goal for today?</AlertDialogTitle>
                 <AlertDialogDescription>
-                    Once you enter how much you have gained, this trip will end.
+                    Once you enter how much you would like to earn, the program will start.
                 </AlertDialogDescription>
                 </AlertDialogHeader>
                 <div>
