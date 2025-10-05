@@ -47,11 +47,11 @@ export default function UserNotif({open, onSubmit, setOpen}) {
                 <div>
                     <button onClick={() => setDropdownOpen(!dropdownOpen)} className=" cursor-pointer h-10 w-40 rounded-2xl bg-background border-2 border-lightpurple">Options:</button>
                     <ul className={`${dropdownOpen ? "visible" : "hidden"} h-fit w-40 bg-background flex flex-col items-center`}>
-                        <li onClick={() => setValue(MEMBER_TO_EARNER[1])}>Dummy1</li>
-                        <li onClick={() => setValue(MEMBER_TO_EARNER[2])}>Dummy2</li>
-                        <li onClick={() => setValue(MEMBER_TO_EARNER[3])}>Dummy3</li>
-                        <li onClick={() => setValue(MEMBER_TO_EARNER[4])}>Dummy4</li>
-                        <li onClick={() => setValue(MEMBER_TO_EARNER[5])}>Dummy5</li>
+                        <li onClick={() => setValue(MEMBER_TO_EARNER[1])}>User1</li>
+                        <li onClick={() => setValue(MEMBER_TO_EARNER[2])}>User2</li>
+                        <li onClick={() => setValue(MEMBER_TO_EARNER[3])}>User3</li>
+                        <li onClick={() => setValue(MEMBER_TO_EARNER[4])}>User4</li>
+                        <li onClick={() => setValue(MEMBER_TO_EARNER[5])}>User5</li>
                     </ul>
                 </div>
                 <div className=" w-fit flex justify-center items-center flex-col">
