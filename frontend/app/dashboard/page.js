@@ -144,8 +144,8 @@ export default function Dash(){
             <UserNotif open={userNotifOpen} setOpen={setUserNotifOpen} onSubmit={handleSubmitUser}></UserNotif>
             <GoalNotif open={goalNotifOpen} onSubmit={handleSubmitGoal} setOpen={setGoalNotifOpen}></GoalNotif>
             <Navbar></Navbar>
-            <Map></Map>
-            {currentRec !== "none" && <RecommendCard disabled={disabled} recommendationData={currentRec} onAccept={() => onAccept({actionId: currentRec.action_id,targetHex: currentRec.recommendation.target_hex})} onReject={() => onReject({actionId: currentRec.action_id})}/>}
+            <Map earnerId={earnerId} hex_id_send={activeRec?.recommendation?.target_hex ?? null} ></Map>
+            {currentRec !== "none" && <RecommendCard recommendationData={currentRec} onAccept={() => onAccept({actionId: currentRec.action_id,targetHex: currentRec.recommendation.target_hex})} onReject={() => onReject({actionId: currentRec.action_id})}/>}
             <GoalBar progress={currentRec.cash_today_eur} goal={goal}></GoalBar>
             <WellnessBar 
             progress={currentRec !== "none" ? currentRec.fatigue_score : 0} 
