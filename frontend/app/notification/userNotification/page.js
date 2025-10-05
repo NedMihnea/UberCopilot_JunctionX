@@ -21,14 +21,22 @@ export default function UserNotif({open, onSubmit, setOpen}) {
             alert("You must pick a member!");
             return;
         }
-        setOpen(false);
+        console.log(value);
         onSubmit(value);
-        setValue("");
+        setOpen(false);
     };
 
     const changeValue = (value) => {
         setValue(value);
     }
+
+    const MEMBER_TO_EARNER = {
+        1: "E10000",
+        2: "E10001",
+        3: "E10002",
+        4: "E10003",
+        5: "E10004",
+    };
 
     return(
         <AlertDialog onOpenChange={setOpen} open={open}>
@@ -37,13 +45,13 @@ export default function UserNotif({open, onSubmit, setOpen}) {
                 <AlertDialogTitle>Which user's route would you like to go on today?</AlertDialogTitle>
                 </AlertDialogHeader>
                 <div>
-                    <button onClick={() => setDropdownOpen(true)} className=" h-20 w-20 bg-red-800"></button>
+                    <button onClick={() => setDropdownOpen(true)} className=" h-20 w-20 rounded-2xl bg-background border-2 border-lightpurple">Options:</button>
                     <ul className={`${dropdownOpen ? "visible" : "hidden"} h-fit w-20 bg-background flex flex-col items-center`}>
-                        <li onClick={() => setValue(1)}>Dummy1</li>
-                        <li onClick={() => setValue(2)}>Dummy2</li>
-                        <li onClick={() => setValue(3)}>Dummy3</li>
-                        <li onClick={() => setValue(4)}>Dummy4</li>
-                        <li onClick={() => setValue(5)}>Dummy5</li>
+                        <li onClick={() => setValue(MEMBER_TO_EARNER[1])}>Dummy1</li>
+                        <li onClick={() => setValue(MEMBER_TO_EARNER[2])}>Dummy2</li>
+                        <li onClick={() => setValue(MEMBER_TO_EARNER[3])}>Dummy3</li>
+                        <li onClick={() => setValue(MEMBER_TO_EARNER[4])}>Dummy4</li>
+                        <li onClick={() => setValue(MEMBER_TO_EARNER[5])}>Dummy5</li>
                     </ul>
                 </div>
                 <AlertDialogFooter>

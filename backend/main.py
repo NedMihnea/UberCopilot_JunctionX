@@ -1,4 +1,5 @@
 from fastapi import FastAPI, HTTPException, Query
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 from typing import Optional
 import pandas as pd
@@ -6,7 +7,13 @@ import time
 import math, os, time, hashlib
 
 app = FastAPI(title="Uber CoPilot+ (Personalized)", version="0.5.0")
-
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 EARNERS_CSV = "earners_min.csv"
 HEX_SOURCE_PATH = "uber_hackathon_v2_mock_data.xlsx"

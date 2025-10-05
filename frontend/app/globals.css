@@ -81,3 +81,15 @@ a{
     animation: fadeUp 0.6s ease forwards;
   }
 }
+
+li{
+  padding: 2px;
+  border-radius: 5px;
+  border-bottom: var(--color-lightpurple);
+  border-width: 3px;
+  cursor: pointer;
+}
+
+li:hover{
+  background-color: var(--customblue);
+}
