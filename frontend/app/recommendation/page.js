@@ -5,7 +5,7 @@ export default function RecommendCard({ recommendationData, onReject, onAccept, 
         "red":"to-red-950"
     }
     return(
-        <div className={`w-[80%] rounded-2xl bg-linear-to-r from-background ${typeColor[recommendationData.wellness]} border-2 border-lightpurple border-solid h-1/4 flex text-start justify-between items-center relative`}>
+        <div className={`w-[80%] rounded-2xl bg-linear-to-r from-background ${typeColor[recommendationData.wellness]} border-2 border-lightpurple border-solid h-70 flex text-start justify-between items-center relative`}>
             <div className="p-5 w-full h-full">
                 <p>{recommendationData.recommendation.title}</p>
                 <p>{recommendationData.recommendation.subtitle}</p>
