@@ -1,11 +1,11 @@
 export default function RecommendCard({ recommendationData, onReject, onAccept }){
     const typeColor = {
-        "reposition":"to-green-950",
-        "break":"to-amber-950",
-        "bad":"to-red-950"
+        "green":"to-green-950",
+        "amber":"to-amber-950",
+        "red":"to-red-950"
     }
     return(
-        <div className={`w-[80%] rounded-2xl bg-linear-to-r from-background ${typeColor[recommendationData.recommendation.type]} border-2 border-lightpurple border-solid h-1/4 flex text-start justify-between items-center relative`}>
+        <div className={`w-[80%] rounded-2xl bg-linear-to-r from-background ${typeColor[recommendationData.wellness]} border-2 border-lightpurple border-solid h-1/4 flex text-start justify-between items-center relative`}>
             <div className="p-5 w-full h-full">
                 <p>{recommendationData.recommendation.title}</p>
                 <p>{recommendationData.recommendation.subtitle}</p>

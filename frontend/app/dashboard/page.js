@@ -11,6 +11,7 @@ import UserNotif from "../notification/userNotification/page";
 import EndSessionButton from "../endSession/page";
 import GetTripData from "../tripData/page";
 import { redirect } from "next/navigation";
+import BreakDiv from "../breakContainer/page";
 
 export default function Dash(){
     const [activeRec, setActive] = useState("none");
@@ -18,6 +19,8 @@ export default function Dash(){
     const [earnerId, setEarnerId] = useState(0);
     const [mapData, setMapData] = useState("none");
     const [summary, setSummary] = useState("none");
+    const [wellnessData, setWellnessData] = useState({wellness:"none",fatigue_score:0.0});
+    const [duration, setDuration] = useState(0);
 
     const [finished, setFinished] = useState(false);
 
@@ -25,8 +28,6 @@ export default function Dash(){
     const [goalNotifOpen, setGoalNotifOpen] = useState(false);
     const [userNotifOpen, setUserNotifOpen] = useState(false);
     const [tripDataOpen, setTripDataOpen] = useState(false);
-    const [tripData, setTripData] = useState({ duration: 0, payment: 0.0});
-    const [tip, setTip] = useState(0.0);
 
     const [goal, setGoal] = useState(0);
 
@@ -44,18 +45,20 @@ export default function Dash(){
 
     const handleTripCompleted = async(tip) =>{
         const savedData =await postJSON(`${API}/events`, {earner_id: earnerId,type: "tip_received",amount_eur: tip});
+        setActive("none");
+        setDuration(savedData.session.minutes_online);
     }
 
     const handleSubmitTripData = async (value) =>{
         setTripDataOpen(false);
-        setTripData(value);
+        
         if(currentRec.recommendation.type !== "break"){
-           const savedData =await postJSON(`${API}/events`, {earner_id: earnerId,type: "trip_completed",amount_eur: tripData.payment,hex_id: currentRec.recommendation.hex_id, duration_minutes: tripData.duration,});
+           const savedData =await postJSON(`${API}/events`, {earner_id: earnerId,type: "trip_completed",amount_eur: value.payment,hex_id: currentRec.recommendation.hex_id, duration_minutes: value.duration,});
         }
     }
 
     const handleEndSession = async() =>{
-        const sum = await getJSON(`${API}/summary/today?earner_id=${id}`);
+        const sum = await getJSON(`${API}/summary/today?earner_id=${earnerId}`);
         setSummary(sum);
         setActive("none");
         setNextRec("none");
@@ -82,7 +85,6 @@ export default function Dash(){
     const handleSubmitUser = (earnerId) => {
       setUserNotifOpen(false);
       setGoalNotifOpen(true);  
-      console.log("You got this "+ earnerId);
       setEarnerId(earnerId);
       getDataFromAPI(earnerId); 
     };
@@ -97,10 +99,9 @@ export default function Dash(){
      const rec = await postJSON(`${API}/recommendation`, {
      earner_id: id,
      local_hour: hour,
-     session_minutes: 0 
+     session_minutes: duration
     });
     setNextRec(rec);
-
 
 };
 
@@ -110,6 +111,8 @@ export default function Dash(){
         setActive(currentRec);
         await postJSON(`${API}/events`, { earner_id : earnerId, type: "accept_card", action_id: actionId });
         setTripDataOpen(true);
+        setWellnessData({wellness: currentRec.wellness, fatigue_score: currentRec.fatigue_score});
+        console.log(currentRec);
     };
 
     const onReject = async ({actionId}) => {
@@ -126,9 +129,13 @@ export default function Dash(){
             <Navbar></Navbar>
             <Map></Map>
             {currentRec !== "none" && <RecommendCard recommendationData={currentRec} onAccept={() => onAccept({actionId: currentRec.action_id,targetHex: currentRec.recommendation.target_hex})} onReject={() => onReject({actionId: currentRec.action_id})}/>}
-            <GoalBar progress={0} goal={goal}></GoalBar>
-            <WellnessBar progress={40}></WellnessBar>
+            <GoalBar progress={currentRec.cash_today_eur} goal={goal}></GoalBar>
+            <WellnessBar 
+            progress={currentRec !== "none" ? currentRec.fatigue_score : 0} 
+            tier={currentRec !== "none" ? currentRec.wellness : "none"} 
+            />
             <GetTripData open={tripDataOpen} setOpen={setTripDataOpen} onSubmit={handleSubmitTripData}></GetTripData>
+            <BreakDiv></BreakDiv>
             <EndSessionButton onClick={handleEndSession}></EndSessionButton>
             {activeRec !== "none" && <CompleteTripButton onSubmit={handleTripCompleted} />}
         </div>

@@ -40,12 +40,12 @@ export default function UserNotif({open, onSubmit, setOpen}) {
 
     return(
         <AlertDialog onOpenChange={setOpen} open={open}>
-            <AlertDialogContent className=" bg-lightpurple p-3 h-[40%] border-2 border-lightpurple rounded-2xl absolute top-60% right-50%">
-                <AlertDialogHeader>
+            <AlertDialogContent className=" bg-lightpurple p-3 h-[40%] border-2 border-lightpurple rounded-2xl absolute top-60% right-50% flex justify-center items-center">
+                <AlertDialogHeader className="bg-background py-2 border-2 min-h-fit border-lightpurple w-full h-10 absolute top-0">
                 <AlertDialogTitle>Which user's route would you like to go on today?</AlertDialogTitle>
                 </AlertDialogHeader>
                 <div>
-                    <button onClick={() => setDropdownOpen(true)} className=" h-20 w-20 rounded-2xl bg-background border-2 border-lightpurple">Options:</button>
+                    <button onClick={() => setDropdownOpen(!dropdownOpen)} className=" cursor-pointer h-10 w-40 rounded-2xl bg-background border-2 border-lightpurple">Options:</button>
                     <ul className={`${dropdownOpen ? "visible" : "hidden"} h-fit w-20 bg-background flex flex-col items-center`}>
                         <li onClick={() => setValue(MEMBER_TO_EARNER[1])}>Dummy1</li>
                         <li onClick={() => setValue(MEMBER_TO_EARNER[2])}>Dummy2</li>
@@ -55,7 +55,7 @@ export default function UserNotif({open, onSubmit, setOpen}) {
                     </ul>
                 </div>
                 <AlertDialogFooter>
-                    <button className=" cursor-pointer" onClick={handleChoice}>Submit</button>
+                    <button className=" border-2 border-background w-40 h-fit py-2 rounded-2xl bg-customgrey text-background cursor-pointer" onClick={handleChoice}>Submit</button>
                 </AlertDialogFooter>
             </AlertDialogContent>
         </AlertDialog>

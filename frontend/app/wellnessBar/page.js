@@ -1,4 +1,9 @@
-export default function WellnessBar({ progress }){
+export default function WellnessBar({ progress,tier }){
+    const typeColor = {
+        "green":"to-green-950",
+        "amber":"to-amber-950",
+        "red":"to-red-950"
+    }
     return(
         <div className="w-[90%] flex flex-col h-fit">
         <p>Wellness:</p>

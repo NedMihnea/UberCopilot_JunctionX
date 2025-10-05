@@ -84,9 +84,6 @@ a{
 
 li{
   padding: 2px;
-  border-radius: 5px;
-  border-bottom: var(--color-lightpurple);
-  border-width: 3px;
   cursor: pointer;
 }
 
