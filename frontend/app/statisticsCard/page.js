@@ -31,8 +31,8 @@ return (
   <div className="w-full h-screen bg-linear-to-t from-lightpurple to-background">
 
             <Navbar />
-    <div className="w-[90%] h-screen space-y-5 mx-auto">
-        <div className="w-[90%] min-h-fit p-3 h-[30%] bg-background border-2 rounded-2xl border-lightpurple mx-auto">
+    <div className="w-[90%] h-screen space-y-5 ml-10 mt-20">
+        <div className="w-[90%] min-h-fit p-6 h-[20%] bg-gradient-to-r from-background to-customblue border-2 rounded-2xl border-lightpurple shadow-lg text-white animate-fadeUp delay-200">
             <p>Cash Earned: €{summary.cash_eur}</p>
             <div>
                 <p>Earnings Breakdown:</p>
@@ -46,7 +46,7 @@ return (
             <GoalBar progress={summary.cash_eur} goal={goal} />
         </div>
 
-        <div className="w-[90%] min-h-fit p-3 h-[30%] bg-background border-2 rounded-2xl border-lightpurple mx-auto">
+        <div className="w-[90%] min-h-fit p-6 h-[20%] bg-gradient-to-r from-background to-customblue border-2 rounded-2xl border-lightpurple shadow-lg text-white animate-fadeUp delay-400">
             <p>Minutes Online: {summary.minutes_online}</p>
             <p>Breaks Taken: {summary.breaks}</p>
             <p>Total Break Minutes: {summary.total_break_minutes}</p>
@@ -54,7 +54,7 @@ return (
             <p>On Break: {summary.on_break ? "Yes" : "No"}</p>
         </div>
 
-        <div className="w-[90%] min-h-fit p-3 h-[30%] bg-background border-2 rounded-2xl border-lightpurple mx-auto">
+        <div className="w-[90%] min-h-fit p-6 h-[20%] bg-gradient-to-r from-background to-customblue border-2 rounded-2xl border-lightpurple shadow-lg text-white animate-fadeUp delay-600">
             <p>Accepted Recommendations: {summary.accepted_recommendations}</p>
             <p>Ignored Recommendations: {summary.ignored_recommendations}</p>
             <p>Last Recommendation: {summary.last_rec?.type || "N/A"}</p>
